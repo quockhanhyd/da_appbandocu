@@ -72,6 +72,11 @@ namespace DA_AppBanDoCu.Entity.MyDbContext
                 e.HasKey(ex => ex.UserID);
                 e.Property(ex => ex.UserID).ValueGeneratedOnAdd();
             });
+            modelBuilder.Entity<UserAddressEntity>(e =>
+            {
+                e.HasKey(ex => ex.UserAddressID);
+                e.Property(ex => ex.UserAddressID).ValueGeneratedOnAdd();
+            });
             //modelBuilder.Entity<ExamCateEntity>().HasMany(e => e.Examinations).WithOne(e => e.ExamCate).HasForeignKey(e => e.ExamCateID).IsRequired();
             //modelBuilder.Entity<MedicineCateEntity>().HasMany(e => e.Medicines).WithOne(e => e.MedicineCate).HasForeignKey(e => e.MedicineCateID).IsRequired();
             //modelBuilder.Entity<UserEntity>().HasOne(e => e.Role).WithMany(e => e.Users).IsRequired();
