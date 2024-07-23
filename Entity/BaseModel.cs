@@ -5,8 +5,6 @@ namespace DA_AppBanDoCu.Entity
 {
     public class BaseModel
     {
-        [NotMapped]
-        public ModelState? State { get; set; }
         /// <summary>
         /// Ngày tạo
         /// </summary>
