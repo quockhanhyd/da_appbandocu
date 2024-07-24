@@ -4,12 +4,15 @@ using DA_AppBanDoCu.Utils;
 using DA_AppBanDoCu.ViewModels.Requests;
 using DA_AppBanDoCu.ViewModels.Responses;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 
 namespace DA_AppBanDoCu.Services
 {
     public interface IProductService
     {
         public string GetList(ProductGetListRequest input, out dynamic result);
+        public string GetListHome(ProductGetListRequest input, out dynamic result);
+        public string GetDetail(int productID, out dynamic result);
         public string InsertOrUpdate(ProductEntity input);
         public string Delete(int ProductID);
     }
@@ -28,6 +31,12 @@ namespace DA_AppBanDoCu.Services
 
             _context.Products.Remove(user);
             _context.SaveChanges();
+            return "";
+        }
+
+        public string GetDetail(int productID, out dynamic result)
+        {
+            result = _context.Products.FirstOrDefault(p => p.ProductID == productID);
             return "";
         }
 
@@ -58,6 +67,31 @@ namespace DA_AppBanDoCu.Services
                     u.CategoryID,
                     CategoryName = _context.Categorys.Where(x => x.CategoryID == u.CategoryID)?.FirstOrDefault().CategoryName,
                 });
+
+            result = new
+            {
+                Data = data.ToList(),
+                Total = data.Count()
+            };
+            return "";
+        }
+
+        public string GetListHome(ProductGetListRequest input, out dynamic result)
+        {
+            input.TextSearch ??= string.Empty;
+            input.TextSearch = input.TextSearch.RemoveVietnameseDiacritics();
+
+            var data = from product in _context.Products
+                       select new
+                       {
+                           ProductId = product.ProductID,
+                           Image = product.ImageUrl,
+                           BrandName = "SecondHand",
+                           ProductName = product.ProductName,
+                           Price = product.Price,
+                           PriceAfetDiscount = product.PriceSale,
+                           Dicountpercent = product.PercentSale,
+                       };
 
             result = new
             {

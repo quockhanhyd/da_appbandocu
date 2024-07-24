@@ -3,6 +3,7 @@ using System;
 using DA_AppBanDoCu.Entity.MyDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DA_AppBanDoCu.Migrations
 {
     [DbContext(typeof(PkContext))]
-    partial class PkContextModelSnapshot : ModelSnapshot
+    [Migration("20240724165503_Update")]
+    partial class Update
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

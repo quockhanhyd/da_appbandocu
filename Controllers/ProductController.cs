@@ -22,6 +22,25 @@ namespace DA_AppBanDoCu.Controllers
             _dataService = dataService;
         }
 
+
+        [HttpPost("GetListHome")]
+        public Result GetListHome(ProductGetListRequest input)
+        {
+            string msg = _dataService.GetListHome(input, out object result);
+            if (!msg.IsEmpty()) return Result.GetResultError(msg);
+
+            return Result.GetResultOk(result);
+        }
+
+        [HttpPost("GetDetail")]
+        public Result GetDetail([FromBody] int productID)
+        {
+            string msg = _dataService.GetDetail(productID, out object result);
+            if (!msg.IsEmpty()) return Result.GetResultError(msg);
+
+            return Result.GetResultOk(result);
+        }
+
         [HttpPost("GetList")]
         public Result GetList(ProductGetListRequest input)
         {
