@@ -16,7 +16,7 @@ namespace DA_AppBanDoCu.Services
     public class ProductService : IProductService
     {
         private readonly PkContext _context;
-        public ProductService() 
+        public ProductService()
         {
             _context = new PkContext();
         }
@@ -42,7 +42,22 @@ namespace DA_AppBanDoCu.Services
             // Lấy tất cả bản ghi từ cơ sở dữ liệu
             var data = _context.Products.ToList() // Lấy tất cả dữ liệu trước
                 .Where(u => u.ProductName.RemoveVietnameseDiacritics().Contains(input.TextSearch)).Skip((input.CurrentPage - 1) * input.PageSize)
-                .Take(input.PageSize);
+                .Take(input.PageSize)
+                .Select(u => new
+                {
+                    u.ProductID,
+                    u.ProductName,
+                    u.TotalAmount,
+                    u.TotalSold,
+                    u.Vote,
+                    u.Price,
+                    u.PriceSale,
+                    u.PercentSale,
+                    u.Description,
+                    u.ImageUrl,
+                    u.CategoryID,
+                    CategoryName = _context.Categorys.Where(x => x.CategoryID == u.CategoryID)?.FirstOrDefault().CategoryName,
+                });
 
             result = new
             {
@@ -54,7 +69,8 @@ namespace DA_AppBanDoCu.Services
 
         public string InsertOrUpdate(ProductEntity input)
         {
-            if (input.ProductID == 0) {
+            if (input.ProductID == 0)
+            {
                 _context.Products.Add(input);
             }
             else
