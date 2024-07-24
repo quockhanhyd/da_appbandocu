@@ -16,7 +16,7 @@ namespace DA_AppBanDoCu.Services
     public class CategoryService : ICategoryService
     {
         private readonly PkContext _context;
-        public CategoryService() 
+        public CategoryService()
         {
             _context = new PkContext();
         }
@@ -40,7 +40,13 @@ namespace DA_AppBanDoCu.Services
 
             // Tạm thời
             // Lấy tất cả bản ghi từ cơ sở dữ liệu
-            var data = _context.Categorys.ToList(); // Lấy tất cả dữ liệu trước
+            var data = _context.Categorys.Select(u => new
+            {
+                u.CategoryID,
+                u.CategoryName,
+                u.Description,
+                productCount = _context.Products.Where(x => x.CategoryID == u.CategoryID).Count(),
+            }).ToList(); // Lấy tất cả dữ liệu trước
 
             result = new
             {
@@ -52,7 +58,8 @@ namespace DA_AppBanDoCu.Services
 
         public string InsertOrUpdate(CategoryEntity input)
         {
-            if (input.CategoryID == 0) {
+            if (input.CategoryID == 0)
+            {
                 _context.Categorys.Add(input);
             }
             else

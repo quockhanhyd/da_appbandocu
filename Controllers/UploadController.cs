@@ -17,15 +17,19 @@ namespace DA_AppBanDoCu.Controllers
         {
             if (file == null || file.Length == 0)
                 return Result.GetResultError("No file uploaded.");
-
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", file.FileName);
+            var newGuid = Guid.NewGuid().ToString();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images", $"{newGuid}_{file.FileName}");
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
+            //Thay bằng địa chỉ ip máy mình
+            var url = "https://192.168.0.107:7156";
+            // Tạo URL công khai
+            var fileUrl = $"{url}/images/{newGuid}_{file.FileName}";
 
-            return Result.GetResultOk(path);
+            return Result.GetResultOk(fileUrl);
         }
     }
 }

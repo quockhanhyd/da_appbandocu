@@ -8,6 +8,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IProductService, ProductService>();
 // Thay đổi cấu hình để lắng nghe trên tất cả các IP
 builder.WebHost.UseUrls("http://0.0.0.0:5009", "https://0.0.0.0:7156");
 builder.Services.AddCors(options =>
@@ -31,6 +32,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseCors("AllowAll");
 app.UseAuthorization();
 app.UseStaticFiles();
