@@ -1,5 +1,7 @@
 ﻿using DA_AppBanDoCu.ViewModels.Responses.Base;
+using Microsoft.AspNetCore.Hosting.Server.Features;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace DA_AppBanDoCu.Controllers
 {
@@ -24,8 +26,19 @@ namespace DA_AppBanDoCu.Controllers
             {
                 await file.CopyToAsync(stream);
             }
+            // Lấy tên máy tính
+            string hostName = Dns.GetHostName();
+
+            // Lấy thông tin về máy chủ dựa trên tên máy tính
+            IPHostEntry hostEntry = Dns.GetHostEntry(hostName);
+
+            // Tìm địa chỉ IP IPv4
+            string ipAddress = hostEntry.AddressList
+                .LastOrDefault(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)?
+                .ToString() ?? "localhost";
+
             //Thay bằng địa chỉ ip máy mình
-            var url = "https://192.168.0.107:7156";
+            var url = $"https://{ipAddress}:7156";
             // Tạo URL công khai
             var fileUrl = $"{url}/images/{newGuid}_{file.FileName}";
 
