@@ -11,7 +11,7 @@
  Target Server Version : 80038
  File Encoding         : 65001
 
- Date: 21/07/2024 20:28:09
+ Date: 27/07/2024 13:50:49
 */
 
 SET NAMES utf8mb4;
@@ -31,6 +31,7 @@ CREATE TABLE `__efmigrationshistory`  (
 -- Records of __efmigrationshistory
 -- ----------------------------
 INSERT INTO `__efmigrationshistory` VALUES ('20240721132723_FirstInit', '6.0.31');
+INSERT INTO `__efmigrationshistory` VALUES ('20240724165503_Update', '6.0.31');
 
 -- ----------------------------
 -- Table structure for carts
@@ -60,8 +61,6 @@ CREATE TABLE `categorys`  (
   `CategoryID` int NOT NULL AUTO_INCREMENT,
   `CategoryName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `Description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
-  `Status` int NOT NULL,
-  `ParentID` int NOT NULL,
   `CreatedDate` datetime(6) NULL DEFAULT NULL,
   `CreatedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
@@ -171,7 +170,6 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products`  (
   `ProductID` int NOT NULL AUTO_INCREMENT,
   `ProductName` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `Slug` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `TotalAmount` int NOT NULL,
   `TotalSold` int NOT NULL,
   `Vote` float NOT NULL,
@@ -179,18 +177,24 @@ CREATE TABLE `products`  (
   `PriceSale` int NOT NULL,
   `PercentSale` int NOT NULL,
   `Description` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
-  `DescriptionHtml` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `ImageUrl` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `CreatedDate` datetime(6) NULL DEFAULT NULL,
   `CreatedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  `CategoryID` int NOT NULL DEFAULT 0,
   PRIMARY KEY (`ProductID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of products
 -- ----------------------------
+INSERT INTO `products` VALUES (1, 'Mountain Warehouse for Women', 1, 1, 1, 540, 420, 20, '1', 'https://i.imgur.com/CGCyp1d.png', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `products` VALUES (2, 'Mountain Beta Warehouse', 1, 0, 1, 800, 800, 0, NULL, 'https://i.imgur.com/AkzWQuJ.png', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `products` VALUES (3, 'FS - Nike Air Max 270 Really React', 1, 0, 1, 650, 390, 40, NULL, 'https://i.imgur.com/J7mGZ12.png', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `products` VALUES (4, 'Green Poplin Ruched Front', 1, 0, 1, 1260, 1200, 5, NULL, 'https://i.imgur.com/q9oF9Yq.png', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `products` VALUES (5, 'Mountain Beta Warehouse', 1, 0, 1, 800, 800, 0, NULL, 'https://i.imgur.com/MsppAcx.png', NULL, NULL, NULL, NULL, 0);
+INSERT INTO `products` VALUES (6, 'Mountain Beta Warehouse', 1, 0, 1, 800, 800, 0, NULL, 'https://i.imgur.com/JfyZlnO.png', NULL, NULL, NULL, NULL, 0);
 
 -- ----------------------------
 -- Table structure for roles
