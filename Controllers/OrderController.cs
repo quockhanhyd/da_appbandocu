@@ -66,5 +66,23 @@ namespace DA_AppBanDoCu.Controllers
 
             return Result.GetResultOk(result);
         }
+
+        [HttpPost("GetById")]
+        public Result GetOrderDetail(OrderDetailParam input)
+        {
+            string msg = _dataService.GetById(input, out object result);
+            if (!msg.IsEmpty()) return Result.GetResultError(msg);
+
+            return Result.GetResultOk(result);
+        }
+
+        [HttpPost("UpdateStatus")]
+        public Result UpdateStatus(UpdateStatusOrder input)
+        {
+            string msg = _dataService.UpdateStatus(input, out object result);
+            if (!msg.IsEmpty()) return Result.GetResultError(msg);
+
+            return Result.GetResultOk(result);
+        }
     }
 }

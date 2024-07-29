@@ -16,6 +16,17 @@ namespace DA_AppBanDoCu.ViewModels.Requests
         public int Status { get; set; }
     }
 
+    public class OrderDetailParam
+    {
+        public int OrderId { get; set; }
+    }
+
+    public class UpdateStatusOrder
+    {
+        public int OrderId { get; set; }
+        public bool Accept { get; set; }
+    }
+
     public class OrderStatusCount
     {
         public string StatusName { get; set; }

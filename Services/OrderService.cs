@@ -12,6 +12,8 @@ namespace DA_AppBanDoCu.Services
         public string GetList(OrderGetListRequest input, out dynamic result);
         public string GetListByMerchanID(OrderParam input, out dynamic result);
         public string GetByStatus(OrderStatus input, out dynamic result);
+        public string GetById(OrderDetailParam input, out dynamic result);
+        public string UpdateStatus(UpdateStatusOrder input, out dynamic result);
         public string InsertOrUpdate(OrderEntity input);
         public string Delete(int OrderID);
     }
@@ -69,39 +71,46 @@ namespace DA_AppBanDoCu.Services
         public string GetListByMerchanID(OrderParam input, out dynamic result)
         {
             // Lấy tất cả bản ghi từ cơ sở dữ liệu
-            var data = _context.Orders.Where(x => x.MerchanID == input.MerchanID).ToList(); // Lấy tất cả dữ liệu trước
-
+            //var data = _context.Orders.Where(x => x.MerchanID == input.MerchanID).ToList(); // Lấy tất cả dữ liệu trước
+            var data = _context.Orders.ToList(); // Lấy tất cả dữ liệu trước
+            // 1: Chờ xác nhận, 2: Chờ lấy hàng, 3: Đang giao hàng, 4 :Hoàn thành, 5: Hủy
             result = new List<OrderStatusCount>
             {
                 new OrderStatusCount
                 {
                     StatusName = "Tất cả",
                     TotalCount = data.Count(),
-                    Status = -1
+                    Status = 0
                 },
                 new OrderStatusCount
                 {
-                    StatusName = "Chờ duyệt",
+                    StatusName = "Chờ xác nhận",
                     TotalCount = data.Count(x => x.Status == 1),
                     Status = 1
                 },
                 new OrderStatusCount
                 {
-                    StatusName = "Đã duyệt",
+                    StatusName = "Chờ lấy hàng",
                     TotalCount = data.Count(x => x.Status == 2),
                     Status = 2
                 },
                 new OrderStatusCount
                 {
-                    StatusName = "Hoàn thành",
+                    StatusName = "Đang giao hàng",
                     TotalCount = data.Count(x => x.Status == 3),
                     Status = 3
                 },
                 new OrderStatusCount
                 {
-                    StatusName = "Đã hủy",
+                    StatusName = "Hoàn thành",
                     TotalCount = data.Count(x => x.Status == 4),
                     Status = 4
+                },
+                new OrderStatusCount
+                {
+                    StatusName = "Hủy",
+                    TotalCount = data.Count(x => x.Status == 5),
+                    Status = 5
                 },
             };
             return "";
@@ -112,10 +121,52 @@ namespace DA_AppBanDoCu.Services
             // Lấy tất cả bản ghi từ cơ sở dữ liệu
             var data = _context.Orders.Where(x => input.Status == 0 || x.Status == input.Status).ToList(); // Lấy tất cả dữ liệu trước
 
-            result = new 
+            result = new
             {
                 Data = data,
                 Total = data.Count()
+            };
+            return "";
+        }
+
+        public string GetById(OrderDetailParam input, out dynamic result)
+        {
+            var data = _context.Orders.Where(x => x.OrderID == input.OrderId).FirstOrDefault(); // Lấy tất cả dữ liệu trước
+            if (data == null)
+            {
+                result = $"Không có dữ liệu {input.OrderId}";
+                return result;
+            }
+            var ordertails = _context.OrderDetails.Where(x => x.OrderID == input.OrderId).ToList();
+            result = new
+            {
+                Order = data,
+                OrderDetail = ordertails,
+            };
+            return "";
+        }
+
+        public string UpdateStatus(UpdateStatusOrder input, out dynamic result)
+        {
+            var order = _context.Orders.Where(x => x.OrderID == input.OrderId).FirstOrDefault(); // Lấy tất cả dữ liệu trước
+            if (order == null)
+            {
+                result = $"Không có dữ liệu {input.OrderId}";
+                return result;
+            }
+            if (input.Accept)
+            {
+                order.Status += 1;
+            }
+            else
+            {
+                order.Status = 5;
+            }
+            _context.Orders.Update(order); // Lấy tất cả dữ liệu trước
+            var res = _context.SaveChanges();
+            result = new
+            {
+                UpdateSuccess = res == 1 ? true : false,
             };
             return "";
         }
