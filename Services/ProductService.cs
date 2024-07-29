@@ -65,7 +65,7 @@ namespace DA_AppBanDoCu.Services
                     u.Description,
                     u.ImageUrl,
                     u.CategoryID,
-                    CategoryName = _context.Categorys.Where(x => x.CategoryID == u.CategoryID)?.FirstOrDefault().CategoryName,
+                    CategoryName = _context.Categorys.Where(x => x.CategoryID == u.CategoryID)?.FirstOrDefault()?.CategoryName,
                 });
 
             result = new

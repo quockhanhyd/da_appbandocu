@@ -110,7 +110,7 @@ namespace DA_AppBanDoCu.Services
         public string GetByStatus(OrderStatus input, out dynamic result)
         {
             // Lấy tất cả bản ghi từ cơ sở dữ liệu
-            var data = _context.Orders.Where(x => x.Status == input.Status).ToList(); // Lấy tất cả dữ liệu trước
+            var data = _context.Orders.Where(x => input.Status == 0 || x.Status == input.Status).ToList(); // Lấy tất cả dữ liệu trước
 
             result = new 
             {

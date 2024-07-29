@@ -8,7 +8,7 @@ namespace DA_AppBanDoCu.Entity
         public int UserID { get; set; } // ng mua
         public int MerchanID { get; set; } // ng bán
         public int TotalPrice { get; set; }
-        public required string Address { get; set; } // Địa chỉ
+        public string? Address { get; set; } // Địa chỉ
         public int ProvinceID { get; set; } // Tỉnh/TP
         public int DistrictID { get; set; } // Quận/Huyện
         public int WardID { get; set; } // Xã/Phường

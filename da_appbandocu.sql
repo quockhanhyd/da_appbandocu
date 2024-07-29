@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 80038
+ Source Server Version : 80039
  Source Host           : localhost:3306
  Source Schema         : da_appbandocu
 
  Target Server Type    : MySQL
- Target Server Version : 80038
+ Target Server Version : 80039
  File Encoding         : 65001
 
- Date: 27/07/2024 13:50:49
+ Date: 29/07/2024 21:27:49
 */
 
 SET NAMES utf8mb4;
@@ -25,7 +25,7 @@ CREATE TABLE `__efmigrationshistory`  (
   `MigrationId` varchar(150) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `ProductVersion` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`MigrationId`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of __efmigrationshistory
@@ -47,11 +47,14 @@ CREATE TABLE `carts`  (
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`CartID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of carts
 -- ----------------------------
+INSERT INTO `carts` VALUES (3, 1, 1, 6, NULL, NULL, NULL, NULL);
+INSERT INTO `carts` VALUES (5, 1, 3, 1, NULL, NULL, NULL, NULL);
+INSERT INTO `carts` VALUES (6, 1, 2, 1, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for categorys
@@ -66,7 +69,7 @@ CREATE TABLE `categorys`  (
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`CategoryID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of categorys
@@ -86,7 +89,7 @@ CREATE TABLE `chats`  (
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`ChatID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of chats
@@ -110,11 +113,17 @@ CREATE TABLE `orderdetails`  (
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`ID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of orderdetails
 -- ----------------------------
+INSERT INTO `orderdetails` VALUES (7, 1, 'DH00001', 1, 'Mountain Warehouse for Women', 6, 420, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `orderdetails` VALUES (8, 1, 'DH00001', 3, 'FS - Nike Air Max 270 Really React', 1, 390, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `orderdetails` VALUES (9, 1, 'DH00001', 2, 'Mountain Beta Warehouse', 1, 800, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `orderdetails` VALUES (10, 2, 'DH00002', 1, 'Mountain Warehouse for Women', 6, 420, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `orderdetails` VALUES (11, 2, 'DH00002', 3, 'FS - Nike Air Max 270 Really React', 1, 390, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `orderdetails` VALUES (12, 2, 'DH00002', 2, 'Mountain Beta Warehouse', 1, 800, 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for orders
@@ -138,11 +147,13 @@ CREATE TABLE `orders`  (
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`OrderID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
+INSERT INTO `orders` VALUES (1, 'DH00001', 1, 0, 3710, '', 0, 0, 0, 0, NULL, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `orders` VALUES (2, 'DH00002', 1, 0, 3710, '', 0, 0, 0, 0, NULL, 0, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for productfavorites
@@ -157,7 +168,7 @@ CREATE TABLE `productfavorites`  (
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`ProductFavoriteID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of productfavorites
@@ -184,7 +195,7 @@ CREATE TABLE `products`  (
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   `CategoryID` int NOT NULL DEFAULT 0,
   PRIMARY KEY (`ProductID`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of products
@@ -208,7 +219,7 @@ CREATE TABLE `roles`  (
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`RoleID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of roles
@@ -231,7 +242,7 @@ CREATE TABLE `useraddresses`  (
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`UserAddressID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of useraddresses
@@ -252,7 +263,7 @@ CREATE TABLE `users`  (
   `ModifiedDate` datetime(6) NULL DEFAULT NULL,
   `ModifiedBy` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
   PRIMARY KEY (`UserID`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of users

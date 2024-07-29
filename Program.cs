@@ -1,10 +1,10 @@
 ﻿using DA_AppBanDoCu.Services;
 var builder = WebApplication.CreateBuilder(args);
 
-//builder.WebHost.ConfigureKestrel(serverOptions =>
-//{
-//    serverOptions.ListenAnyIP(5000); // L?ng nghe tr�n IP 0.0.0.0 v� port 5000
-//});
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.ListenAnyIP(5000); // L?ng nghe tr�n IP 0.0.0.0 v� port 5000
+});
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -14,7 +14,13 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<ICategoryService, CategoryService>();
 builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<ICartService, CartService>();
+builder.Services.AddTransient<ICategoryService, CategoryService>();
+builder.Services.AddTransient<IChatService, ChatService>();
+builder.Services.AddTransient<IOrderDetailService, OrderDetailService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IProductFavoriteService, ProductFavoriteService>();
+builder.Services.AddTransient<IRoleService, RoleService>();
 // Thay đổi cấu hình để lắng nghe trên tất cả các IP
 builder.WebHost.UseUrls("http://0.0.0.0:5009", "https://0.0.0.0:7156");
 builder.Services.AddCors(options =>

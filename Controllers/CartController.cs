@@ -48,5 +48,23 @@ namespace DA_AppBanDoCu.Controllers
 
             return Result.GetResultOk();
         }
+
+        [HttpPost("AddToCart")]
+        public Result AddToCart(AddToCartRequest input)
+        {
+            string msg = _dataService.AddToCart(input);
+            if (!msg.IsEmpty()) return Result.GetResultError(msg);
+
+            return Result.GetResultOk();
+        }
+
+        [HttpPost("Order")]
+        public Result Order([FromBody] int UserID)
+        {
+            string msg = _dataService.Order(UserID, out object result);
+            if (!msg.IsEmpty()) return Result.GetResultError(msg);
+
+            return Result.GetResultOk(result);
+        }
     }
 }
