@@ -34,28 +34,15 @@ namespace DA_AppBanDoCu.Controllers
             UserEntity user = _context.Users.FirstOrDefault(u => u.Username.ToLower().Equals(input.Username.Trim().ToLower()));
             if (user == null || !user.Password.Equals(input.Password)) return Result.GetResultError("Tài khoản hoặc mật khẩu không chính xác!");
 
-            var claims = new[]
-            {
-                new Claim(JwtRegisteredClaimNames.Sub, input.Username),
-                new Claim(JwtRegisteredClaimNames.Sid, user.UserID.ToString()),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            var secretKey = _configuration["JwtSettings:SecretKey"];
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JwtSettings:Issuer"],
-                audience: _configuration["JwtSettings:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddMinutes(30),
-                signingCredentials: creds);
-
+            var role = _context.Roles.FirstOrDefault(x => x.RoleID == user.RoleID);
             return Result.GetResultOk(new
             {
-                UserInfo = user,
-                Token = new JwtSecurityTokenHandler().WriteToken(token),
+                UserId= user.UserID,
+                UserName = user.Username,
+                Password = user.Password,
+                FullName = user.Fullname,
+                RoleId = user.RoleID,
+                RoleName  = role.RoleName
             });
         }
     }
