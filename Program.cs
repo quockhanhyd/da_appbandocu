@@ -21,6 +21,8 @@ builder.Services.AddTransient<IOrderDetailService, OrderDetailService>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IProductFavoriteService, ProductFavoriteService>();
 builder.Services.AddTransient<IRoleService, RoleService>();
+builder.Services.AddTransient<IUserService, UserService>();
+
 // Thay đổi cấu hình để lắng nghe trên tất cả các IP
 builder.WebHost.UseUrls("http://0.0.0.0:5009", "https://0.0.0.0:7156");
 builder.Services.AddCors(options =>
