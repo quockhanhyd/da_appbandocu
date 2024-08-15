@@ -32,6 +32,16 @@ namespace DA_AppBanDoCu.Controllers
             return Result.GetResultOk(result);
         }
 
+
+        [HttpPost("GetListByCategoryID")]
+        public Result GetListByCategoryID([FromBody] int CategoryID)
+        {
+            string msg = _dataService.GetListByCategoryID(CategoryID, out object result);
+            if (!msg.IsEmpty()) return Result.GetResultError(msg);
+
+            return Result.GetResultOk(result);
+        }
+
         [HttpPost("GetDetail")]
         public Result GetDetail([FromBody] int productID)
         {

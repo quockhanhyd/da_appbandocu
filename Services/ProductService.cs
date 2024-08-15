@@ -4,6 +4,7 @@ using DA_AppBanDoCu.Utils;
 using DA_AppBanDoCu.ViewModels.Requests;
 using DA_AppBanDoCu.ViewModels.Responses;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using System.Diagnostics;
 
 namespace DA_AppBanDoCu.Services
@@ -15,6 +16,7 @@ namespace DA_AppBanDoCu.Services
         public string GetDetail(int productID, out dynamic result);
         public string InsertOrUpdate(ProductEntity input);
         public string Delete(int ProductID);
+        public string GetListByCategoryID(int CategoryID, out dynamic result);
     }
     public class ProductService : IProductService
     {
@@ -82,6 +84,7 @@ namespace DA_AppBanDoCu.Services
             input.TextSearch = input.TextSearch.RemoveVietnameseDiacritics();
 
             var data = from product in _context.Products
+                       orderby product.ProductID descending
                        select new
                        {
                            ProductId = product.ProductID,
@@ -112,6 +115,20 @@ namespace DA_AppBanDoCu.Services
                 _context.Products.Update(input);
             }
             _context.SaveChanges();
+            return "";
+        }
+
+        public string GetListByCategoryID(int CategoryID, out dynamic result)
+        {
+            var data = from product in _context.Products
+                       where product.CategoryID == CategoryID
+                       select product;
+
+            result = new
+            {
+                Data = data.ToList(),
+                Total = data.Count()
+            };
             return "";
         }
     }
